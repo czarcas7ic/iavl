@@ -471,6 +471,7 @@ func (ndb *nodeDB) deleteLegacyVersions() error {
 	ndb.legacyLatestVersion = -1
 
 	// Delete all orphan nodes of the legacy versions
+	fmt.Println("deleteLegacyVersions deleteOrphans")
 	go func() {
 		if err := ndb.deleteOrphans(); err != nil {
 			ndb.logger.Error("failed to clean legacy orphans", "err", err)
@@ -482,6 +483,7 @@ func (ndb *nodeDB) deleteLegacyVersions() error {
 
 // deleteOrphans cleans all legacy orphans from the nodeDB.
 func (ndb *nodeDB) deleteOrphans() error {
+	fmt.Println("deleteOrphans")
 	itr, err := dbm.IteratePrefix(ndb.db, legacyOrphanKeyFormat.Key())
 	if err != nil {
 		return err
